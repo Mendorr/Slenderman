@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3b81562ccc7e92543a108e811251a16f
+timeCreated: 1453384415
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 54622
+  packageName: Realistic Tree 9
+  packageVersion: 1.0
+  assetPath: Assets/Tree9/Materials/leaf.mat
+  uploadId: 99758
