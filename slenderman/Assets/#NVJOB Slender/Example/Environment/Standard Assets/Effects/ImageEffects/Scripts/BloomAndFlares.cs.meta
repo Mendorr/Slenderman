@@ -1,0 +1,29 @@
+fileFormatVersion: 2
+guid: 9cd6aa80ad9c4d4fbef45119a429a5cf
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - lensFlareVignetteMask: {fileID: 2800000, guid: 0910f75b572745c59e95e500ce2de632,
+      type: 3}
+  - lensFlareShader: {fileID: 4800000, guid: 55d1c16e16a5477c9da0e4c4252fb39b, type: 3}
+  - vignetteShader: {fileID: 4800000, guid: 3e9b9b51c89a4525a99a707c67e1ce39, type: 3}
+  - separableBlurShader: {fileID: 4800000, guid: 1aa181d72b7a4c9b8214443fabfc1225,
+      type: 3}
+  - addBrightStuffOneOneShader: {fileID: 4800000, guid: cbdbcbfc81d3480a98429ab6a1192063,
+      type: 3}
+  - screenBlendShader: {fileID: 4800000, guid: ddaf7b8bb1924817b0b94cd98cf5a3c7, type: 3}
+  - hollywoodFlaresShader: {fileID: 4800000, guid: 86d71de7324340a28f72e0523dc74697,
+      type: 3}
+  - brightPassFilterShader: {fileID: 4800000, guid: c4a4a6c81a7d43aea135940bcb2c28a4,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Scripts/BloomAndFlares.cs
+  uploadId: 375459

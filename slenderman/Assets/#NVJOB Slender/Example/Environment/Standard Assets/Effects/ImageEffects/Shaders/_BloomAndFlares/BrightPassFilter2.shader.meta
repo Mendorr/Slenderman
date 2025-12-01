@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 3cb70021c7914b2080abd457180f7af5
+ShaderImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/_BloomAndFlares/BrightPassFilter2.shader
+  uploadId: 375459

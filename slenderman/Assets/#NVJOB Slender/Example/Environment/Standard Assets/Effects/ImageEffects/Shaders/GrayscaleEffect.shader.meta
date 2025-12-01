@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 872c9f85f8ec4719ad4aabf6002fe71a
+ShaderImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/GrayscaleEffect.shader
+  uploadId: 375459

@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: d30856bbe84e4506bb487e3ad159a370
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - vignetteShader: {fileID: 4800000, guid: 3e9b9b51c89a4525a99a707c67e1ce39, type: 3}
+  - separableBlurShader: {fileID: 4800000, guid: e60e86b54ee14fdbb6805adb0c279f54,
+      type: 3}
+  - chromAberrationShader: {fileID: 4800000, guid: 1df563c5c1624578976ca0cda3e73714,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Scripts/VignetteAndChromaticAberration.cs
+  uploadId: 375459

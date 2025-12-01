@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: cb8900ef7b854e35a7a3c5e349792455
+ShaderImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/ScreenSpaceAmbientObscurance.shader
+  uploadId: 375459

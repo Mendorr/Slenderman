@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 8b8c6aa9d0214815a0c98183b68a8d0e
+ShaderImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/_Antialiasing/FXAA2.shader
+  uploadId: 375459

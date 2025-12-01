@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: e96e47e2072d4f46b244e938fabf4e7b
+ShaderImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/CameraMotionBlurDX11.shader
+  uploadId: 375459

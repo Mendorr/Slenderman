@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: e96bf2bd6e4a41b3ae41fa674269a3f2
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - fishEyeShader: {fileID: 4800000, guid: 4366a9cd19d14d4298395f955bd521b3, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Scripts/Fisheye.cs
+  uploadId: 375459

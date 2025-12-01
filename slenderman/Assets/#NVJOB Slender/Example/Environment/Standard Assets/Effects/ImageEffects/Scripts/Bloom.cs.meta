@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 327182dae1394c35a16bff0dc3b50cd7
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - lensFlareVignetteMask: {fileID: 2800000, guid: 0910f75b572745c59e95e500ce2de632,
+      type: 3}
+  - lensFlareShader: {fileID: 4800000, guid: 55d1c16e16a5477c9da0e4c4252fb39b, type: 3}
+  - screenBlendShader: {fileID: 4800000, guid: 5db36cb1f44743cebd920015aa3d9e5a, type: 3}
+  - blurAndFlaresShader: {fileID: 4800000, guid: 68bc731c66664849b5e0d8a7a3d4ffbe,
+      type: 3}
+  - brightPassFilterShader: {fileID: 4800000, guid: 3cb70021c7914b2080abd457180f7af5,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Scripts/Bloom.cs
+  uploadId: 375459

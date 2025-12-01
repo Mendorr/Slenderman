@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 4278f04d5a434966a4d47419d40adcef
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - shaderLum: {fileID: 4800000, guid: 351273b6d44a493398360a6c462f013c, type: 3}
+  - shaderReduce: {fileID: 4800000, guid: 18856479f322437bbe94468b0ee80750, type: 3}
+  - shaderAdapt: {fileID: 4800000, guid: 4ee7085fd3884123a396a12b7d167b28, type: 3}
+  - shaderApply: {fileID: 4800000, guid: a761608602d94225b9cb7fcc6cb1955e, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Scripts/ContrastStretch.cs
+  uploadId: 375459

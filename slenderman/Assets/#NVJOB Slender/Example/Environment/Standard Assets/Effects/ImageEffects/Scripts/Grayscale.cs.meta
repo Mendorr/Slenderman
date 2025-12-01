@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: d48a1e38bc754e7993b893fa1ebc17e9
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - shader: {fileID: 4800000, guid: 872c9f85f8ec4719ad4aabf6002fe71a, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Scripts/Grayscale.cs
+  uploadId: 375459

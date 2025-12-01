@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 417414ab2f654856a8eb6879720992ae
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Editor/ImageEffects/TonemappingEditor.cs
+  uploadId: 375459

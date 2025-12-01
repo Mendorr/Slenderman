@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: df188ae90bc0429aa719e6d5276e9c60
+ShaderImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/SSAOShader.shader
+  uploadId: 375459

@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 43baf91cf7ea4471b340e79bef452812
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - shader: {fileID: 4800000, guid: 7ad6c960f0cd471a830c083bc415bd40, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Scripts/SepiaTone.cs
+  uploadId: 375459

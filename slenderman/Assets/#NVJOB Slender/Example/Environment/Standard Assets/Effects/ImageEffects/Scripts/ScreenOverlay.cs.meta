@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: f27cc58a4e4942c191479c92c5a043f2
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - texture: {instanceID: 0}
+  - overlayShader: {fileID: 4800000, guid: e2b89dad781d48c68822056e576aea33, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Scripts/ScreenOverlay.cs
+  uploadId: 375459

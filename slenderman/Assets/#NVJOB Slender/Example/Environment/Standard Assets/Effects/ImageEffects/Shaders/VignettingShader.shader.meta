@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 3e9b9b51c89a4525a99a707c67e1ce39
+ShaderImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/VignettingShader.shader
+  uploadId: 375459

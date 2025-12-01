@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 3a7a03293a044550b16c36b51a4fb975
+ShaderImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/ColorCorrectionSelective.shader
+  uploadId: 375459

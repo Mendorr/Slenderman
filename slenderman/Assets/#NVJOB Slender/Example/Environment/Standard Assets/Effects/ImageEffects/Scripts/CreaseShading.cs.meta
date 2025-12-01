@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: cf3745b033614b0d95be8c1c22cf31d3
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - blurShader: {fileID: 4800000, guid: e60e86b54ee14fdbb6805adb0c279f54, type: 3}
+  - depthFetchShader: {fileID: 4800000, guid: d6dcc532296c4a37abfdeb79f111348b, type: 3}
+  - creaseApplyShader: {fileID: 4800000, guid: ab9802d16c914a3cabc824fdeb2db412, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Scripts/CreaseShading.cs
+  uploadId: 375459

@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 4366a9cd19d14d4298395f955bd521b3
+ShaderImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/FisheyeShader.shader
+  uploadId: 375459
