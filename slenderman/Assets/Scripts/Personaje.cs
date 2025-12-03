@@ -7,6 +7,12 @@ public class Personaje : MonoBehaviour
     [SerializeField] float velocidadRotacion;
     [SerializeField] float frecuenciaPisadas;
 
+    [SerializeField] Transform slenderman;
+    [SerializeField] Material interferenciasMaterial;   
+
+    [SerializeField] float distanciaMax = 30f;   // A partir de aquí no hay interferencias
+    [SerializeField] float nitidezMax = 1f;      // Valor máximo del shader cuando está muy cerca
+
     private CharacterController chracterController;
     private Camera camera;
     private AudioSource audioSource;
@@ -28,6 +34,21 @@ public class Personaje : MonoBehaviour
     {
         Movimiento();
         MovimientoCamara();
+        ControlarInterferencias();
+    }
+
+    void ControlarInterferencias()
+{
+        if (slenderman == null || interferenciasMaterial == null) return;
+
+        float distancia = Vector3.Distance(transform.position, slenderman.position);
+
+        // Cuanto más cerca, mayor nitidez
+        float intensidad = 1f - Mathf.Clamp01(distancia / distanciaMax);
+
+        float nitidezActual = Mathf.Lerp(0, nitidezMax, intensidad);
+
+        interferenciasMaterial.SetFloat("_Nitidez", nitidezActual);
     }
 
     void Movimiento()
