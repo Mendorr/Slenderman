@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 36b5db00e5ac4ef7b249fd487a0d2658
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Materials/Fake Light Flash.shader
+  uploadId: 375459

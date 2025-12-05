@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: d25fc23c0cfc4c3d8f52e50bd1c9a47a
+timeCreated: 1425661779
+licenseType: Store
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/ScreenSpaceRaytrace.cginc
+  uploadId: 375459

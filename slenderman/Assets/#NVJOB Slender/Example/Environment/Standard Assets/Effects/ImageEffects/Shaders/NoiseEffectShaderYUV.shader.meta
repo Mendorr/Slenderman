@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 7211f4aeb4f041f59b0539e64052cb48
+ShaderImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/NoiseEffectShaderYUV.shader
+  uploadId: 375459

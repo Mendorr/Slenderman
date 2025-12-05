@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 4bf40dc361d241f6b0ce012df6440928
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - focalTransform: {instanceID: 0}
+  - dofHdrShader: {fileID: 4800000, guid: 6b82cef470fb47b8a9b0a1e9286e35c3, type: 3}
+  - dx11BokehShader: {fileID: 4800000, guid: cecdcfec431a4ca2ba81114cf8e50125, type: 3}
+  - dx11BokehTexture: {fileID: 2800000, guid: 7251702aa6bb4f4fb19ff470fda37a37, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Scripts/DepthOfField.cs
+  uploadId: 375459

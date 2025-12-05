@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 160439147c5a4d07bbf824255fb97feb
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - shader: {fileID: 4800000, guid: fceb0b44d6084f7da40611b1020e898b, type: 3}
+  - dx11MotionBlurShader: {fileID: 4800000, guid: e96e47e2072d4f46b244e938fabf4e7b,
+      type: 3}
+  - replacementClear: {fileID: 4800000, guid: ed50a791e4144026b4cc8be898092a95, type: 3}
+  - noiseTexture: {fileID: 2800000, guid: 5c13933cb3dc4c5bba19c43e00824581, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Scripts/CameraMotionBlur.cs
+  uploadId: 375459

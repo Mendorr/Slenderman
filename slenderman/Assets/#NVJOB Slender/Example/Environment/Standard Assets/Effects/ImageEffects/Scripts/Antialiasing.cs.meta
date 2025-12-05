@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: cf858ff7b94947c281f3bdf82e698621
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - ssaaShader: {fileID: 4800000, guid: 192a50c98dd84b729f699ae2085fe4b6, type: 3}
+  - dlaaShader: {fileID: 4800000, guid: e3694b2018d547c3b37af7946a0f9934, type: 3}
+  - nfaaShader: {fileID: 4800000, guid: a967873b663f4b8da0831112df454c17, type: 3}
+  - shaderFXAAPreset2: {fileID: 4800000, guid: 2514c13d50ae4f908898b6c3e17ff18e, type: 3}
+  - shaderFXAAPreset3: {fileID: 4800000, guid: 9904fc0308b5407fbf8baf6c3cd98d84, type: 3}
+  - shaderFXAAII: {fileID: 4800000, guid: 8b8c6aa9d0214815a0c98183b68a8d0e, type: 3}
+  - shaderFXAAIII: {fileID: 4800000, guid: 143019aa08604ef28a2740cc57ae7406, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Scripts/Antialiasing.cs
+  uploadId: 375459

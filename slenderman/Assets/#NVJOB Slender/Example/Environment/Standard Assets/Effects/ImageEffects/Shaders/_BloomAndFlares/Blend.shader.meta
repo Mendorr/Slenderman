@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: ddaf7b8bb1924817b0b94cd98cf5a3c7
+ShaderImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/_BloomAndFlares/Blend.shader
+  uploadId: 375459

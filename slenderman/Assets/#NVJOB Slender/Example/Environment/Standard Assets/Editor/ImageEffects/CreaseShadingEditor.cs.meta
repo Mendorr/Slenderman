@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: fdb2009c85994a27ad8db61f2d2b1d1a
+timeCreated: 1434032656
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Editor/ImageEffects/CreaseShadingEditor.cs
+  uploadId: 375459

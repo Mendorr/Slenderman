@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: d6dcc532296c4a37abfdeb79f111348b
+ShaderImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/ConvertDepth.shader
+  uploadId: 375459

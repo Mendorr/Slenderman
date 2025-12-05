@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: c43352b4d70643de8a61da58c9f40162
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - shader: {fileID: 4800000, guid: 0b253bcab4ef43cb91203807da9a9b9a, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Scripts/MotionBlur.cs
+  uploadId: 375459

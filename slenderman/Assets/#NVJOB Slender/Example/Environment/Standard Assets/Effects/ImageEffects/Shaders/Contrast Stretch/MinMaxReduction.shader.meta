@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 18856479f322437bbe94468b0ee80750
+ShaderImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/Contrast
+    Stretch/MinMaxReduction.shader
+  uploadId: 375459

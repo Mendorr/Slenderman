@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 4d2924fea4604f8c8cbd2f1d3c412b86
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - shader: {fileID: 4800000, guid: 6d4561a1fb4341f7a60f9dc029569251, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Scripts/Vortex.cs
+  uploadId: 375459

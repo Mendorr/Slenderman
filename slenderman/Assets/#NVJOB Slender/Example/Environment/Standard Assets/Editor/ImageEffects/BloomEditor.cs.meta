@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 17d3f1d502654167abc2112b69c71bb3
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Editor/ImageEffects/BloomEditor.cs
+  uploadId: 375459

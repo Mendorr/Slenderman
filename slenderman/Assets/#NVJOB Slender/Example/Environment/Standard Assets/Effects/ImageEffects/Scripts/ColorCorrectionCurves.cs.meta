@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: a4ca9b3a6d434feb8adad46e65443f9d
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - colorCorrectionCurvesShader: {fileID: 4800000, guid: 291c2e9677b249e39279600a9cbd2755,
+      type: 3}
+  - simpleColorCorrectionCurvesShader: {fileID: 4800000, guid: 95e862f5f514430d8d050ef4b68f0ea0,
+      type: 3}
+  - colorCorrectionSelectiveShader: {fileID: 4800000, guid: 3a7a03293a044550b16c36b51a4fb975,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Scripts/ColorCorrectionCurves.cs
+  uploadId: 375459

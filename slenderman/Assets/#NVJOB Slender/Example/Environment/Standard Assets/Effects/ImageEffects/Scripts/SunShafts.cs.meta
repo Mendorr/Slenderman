@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 8cb73c635e2d4c229a6ab9b5f41b81b7
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - sunTransform: {instanceID: 0}
+  - sunShaftsShader: {fileID: 4800000, guid: ba4052a78c454516a304255de18dad0e, type: 3}
+  - simpleClearShader: {fileID: 4800000, guid: e77e0b08ae174e5aa861ee7d524fd8c2, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Scripts/SunShafts.cs
+  uploadId: 375459

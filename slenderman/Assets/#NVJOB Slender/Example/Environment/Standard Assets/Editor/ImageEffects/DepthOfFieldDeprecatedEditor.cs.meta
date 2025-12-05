@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 0809da9dce58465ea7c3b921bd982355
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Editor/ImageEffects/DepthOfFieldDeprecatedEditor.cs
+  uploadId: 375459

@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 99b3865006fc488c949e2f8c1e527c90
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - grainTexture: {fileID: 2800000, guid: 698c13ae89df40739f71b672cb824c26, type: 3}
+  - scratchTexture: {fileID: 2800000, guid: 9ae03039132c4e99b885764303fc0b44, type: 3}
+  - shaderRGB: {fileID: 4800000, guid: c9e63cb53c8d40b69bc7d00cb7ab2ff4, type: 3}
+  - shaderYUV: {fileID: 4800000, guid: 7211f4aeb4f041f59b0539e64052cb48, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Scripts/NoiseAndScratches.cs
+  uploadId: 375459

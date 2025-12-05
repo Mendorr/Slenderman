@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: eae3c8eb91c442029b682d6e7a4a232b
+ShaderImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/NoiseAndGrainDX11.shader
+  uploadId: 375459

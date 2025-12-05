@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: c438270e615a45079b56a52a755fb075
+ShaderImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/EdgeDetectNormals.shader
+  uploadId: 375459

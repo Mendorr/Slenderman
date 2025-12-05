@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: e77e0b08ae174e5aa861ee7d524fd8c2
+ShaderImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/SimpleClear.shader
+  uploadId: 375459

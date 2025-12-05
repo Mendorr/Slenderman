@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: ab9802d16c914a3cabc824fdeb2db412
+ShaderImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/CreaseApply.shader
+  uploadId: 375459

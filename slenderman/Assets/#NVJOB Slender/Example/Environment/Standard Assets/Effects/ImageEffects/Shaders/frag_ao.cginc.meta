@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 1717f602e66f491783eefd96b5e7a5f8
+ShaderImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/frag_ao.cginc
+  uploadId: 375459

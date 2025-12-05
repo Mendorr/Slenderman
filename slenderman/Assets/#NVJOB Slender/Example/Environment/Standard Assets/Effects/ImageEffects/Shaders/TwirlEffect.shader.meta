@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: b85feab6cdf548ed97e3e34b2973e4f0
+ShaderImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/TwirlEffect.shader
+  uploadId: 375459

@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: b5dab9cabb534654b65e640c16d7456a
+ShaderImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Shaders/Tonemapper.shader
+  uploadId: 375459

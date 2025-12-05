@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 5723635ebc714d5f8ba64d886821c07e
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - separableBlurShader: {fileID: 4800000, guid: e60e86b54ee14fdbb6805adb0c279f54,
+      type: 3}
+  - contrastCompositeShader: {fileID: 4800000, guid: 90879401b6754f668c88077db905237b,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 173376
+  packageName: '#NVJOB Slender (Rigged, BlendShapes)'
+  packageVersion: 1.0
+  assetPath: Assets/#NVJOB Slender/Example/Environment/Standard Assets/Effects/ImageEffects/Scripts/ContrastEnhance.cs
+  uploadId: 375459
