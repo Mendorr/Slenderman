@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class TiempoNoche : MonoBehaviour
 {
@@ -39,7 +40,6 @@ public class TiempoNoche : MonoBehaviour
     {
         juegoTerminado = true;
         Debug.Log("¡Has sobrevivido a la noche! ¡Has ganado!");
-        // Aquí puedes cargar una escena de victoria o activar un panel UI
-        // SceneManager.LoadScene("Victoria");
+        SceneManager.LoadScene("VictoryScene");
     }
 }

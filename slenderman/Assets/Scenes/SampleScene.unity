@@ -886,6 +886,16 @@ MonoBehaviour:
   teleportOffset: 20
   teleportSnapToGround: 1
   teleportDelay: 3
+  escenaVideoDerrota: DefeatScene
+  retrasoDerrota: 0.5
+  efectoDerrota: {fileID: 0}
+  sonidoDerrota: {fileID: 8300000, guid: 0d3e58bb90924afba39e665277b5f80a, type: 3}
+  probabilidadModoLoco: 60
+  duracionModoLoco: 5
+  multiplicadorVelocidadLoco: 3
+  multiplicadorRangoLoco: 3
+  sonidoModoLoco: {fileID: 8300000, guid: 0d3e58bb90924afba39e665277b5f80a, type: 3}
+  efectoModoLoco: {fileID: 0}
 --- !u!4 &814820533 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1010010733671478586, guid: c0ec2cd63f93487d92d6623d393c83ba, type: 3}
