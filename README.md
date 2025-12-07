@@ -15,17 +15,10 @@ Proyecto de survival horror en primera persona inspirado en el mito de Slenderma
 - Render Pipeline: Universal RP 17.2.0.
 - Paquetes usados: Input System 1.14.2, Timeline, UGUI, Visual Scripting, AI Navigation, Multiplayer Center (solo presente, no configurado).
 
-## 📁 Estructura del proyecto
-slenderman/
- ├── Assets/
- │    ├── Scenes/           # Escenas principales
- │    ├── Scripts/          # IA, jugador, gameplay, UI
- │    ├── Resources/
- │    ├── Shaders/
- │    ├── Sounds/
- │    ├── Images/
- │    └── Videos/
- └── ProjectSettings/
+## 📁 Estructura rápida del proyecto
+- `Assets/Scenes/` – escenas principales del juego.
+- `Assets/Scripts/` – lógica de gameplay (IA de Slenderman, jugador, menú, temporizador nocturno, etc.).
+- `Assets/Resources`, `Shaders`, `Sounds`, `Images`, `Videos` – contenido artístico y de audio.
 
 ## 🎮 Controles (PC)
 - Movimiento: `WASD`.
