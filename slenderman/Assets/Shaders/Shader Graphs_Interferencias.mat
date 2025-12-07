@@ -42,7 +42,7 @@ Material:
     - _Grosor_Granulado: 1.5
     - _Interpolacion: 10
     - _MultiplicadorRuido: 3
-    - _Nitidez: 0.8541109
+    - _Nitidez: 0.8146417
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1

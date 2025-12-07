@@ -349,11 +349,59 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   velocidadMovimiento: 4
   velocidadRotacion: 4
+  velocidadCorrer: 8
+  consumoStamina: 20
+  recuperacionStamina: 10
   frecuenciaPisadas: 0.5
+  frecuenciaPisadasCorriendo: 0.3
+  sonidosPisadas: []
+  volumenPisadas: 0.5
   slenderman: {fileID: 814820533}
   interferenciasMaterial: {fileID: 2100000, guid: 5ea51e8849564b84d84d6d7c47f20414, type: 2}
   distanciaMax: 30
   nitidezMax: 1
+  activarSistemaMiedo: 1
+  miedoMaximo: 100
+  miedoPorSegundoCerca: 15
+  distanciaMiedoCritico: 10
+  distanciaMiedoAlto: 20
+  reduccionMiedoPorSegundo: 5
+  tiempoParaCalmarseTotal: 3
+  sonidoRespiracion: {fileID: 0}
+  sonidoCorazon: {fileID: 0}
+  sonidoSusurros: {fileID: 0}
+  sonidoPanicoExtremo: {fileID: 0}
+  volumenMaximoRespiracion: 0.7
+  volumenMaximoCorazon: 0.6
+  "vi\xF1etaMiedo": {fileID: 0}
+  "colorVi\xF1etaBajo": {r: 0, g: 0, b: 0, a: 0}
+  "colorVi\xF1etaAlto": {r: 0.3, g: 0, b: 0, a: 0.6}
+  "velocidadParpadeoVi\xF1eta": 4
+  efectoChromaticAberration: {fileID: 0}
+  efectoGrano: {fileID: 0}
+  activarTemblor: 1
+  intensidadTemblor: 1
+  velocidadTemblor: 1
+  activarDistorsionMovimiento: 1
+  distorsionMaxima: 0.3
+  reducirVelocidadConMiedo: 1
+  reduccionVelocidadMaxima: 0.5
+  dificultarControlConMiedo: 1
+  aumentoSensibilidadMaximo: 1.5
+  limitarVisionConMiedo: 1
+  reduccionFOVMaxima: 15
+  barraEstamina: {fileID: 0}
+  barraMiedo: {fileID: 0}
+  textoEstadoMiedo: {fileID: 0}
+  panelAdvertenciaPeligro: {fileID: 0}
+  activarModoSuperviviencia: 1
+  umbralPanico: 80
+  duracionBoostPanico: 3
+  multiplicadorVelocidadPanico: 1.5
+  materialDesaturacion: {fileID: 0}
+  luzJugador: {fileID: 0}
+  reduccionLuzMaxima: 0.5
+  particulasMiedo: []
 --- !u!82 &72094870
 AudioSource:
   m_ObjectHideFlags: 0
@@ -879,23 +927,45 @@ MonoBehaviour:
   rotationSpeed: 5
   detectionRange: 20
   runRange: 5
+  acceleration: 2
+  footstepSounds: []
   footstepIntervalWalk: 0.6
   footstepIntervalRun: 0.35
+  footstepVolume: 0.5
   enableTeleport: 1
   teleportDistance: 50
   teleportOffset: 20
   teleportSnapToGround: 1
   teleportDelay: 3
+  teleportSound: {fileID: 8300000, guid: 70fe24410096ebe4593e4cea1e261f7a, type: 3}
+  teleportEffect: {fileID: 0}
   escenaVideoDerrota: DefeatScene
   retrasoDerrota: 0.5
   efectoDerrota: {fileID: 0}
   sonidoDerrota: {fileID: 8300000, guid: 0d3e58bb90924afba39e665277b5f80a, type: 3}
+  attackDistance: 3
   probabilidadModoLoco: 60
   duracionModoLoco: 5
   multiplicadorVelocidadLoco: 3
   multiplicadorRangoLoco: 3
   sonidoModoLoco: {fileID: 8300000, guid: 0d3e58bb90924afba39e665277b5f80a, type: 3}
   efectoModoLoco: {fileID: 0}
+  checkIntervalModoLoco: 10
+  freezeWhenLookedAt: 1
+  freezeAngleThreshold: 45
+  freezeCheckInterval: 0.2
+  staticSound: {fileID: 0}
+  enableSmartPatrol: 1
+  patrolRadius: 20
+  minPatrolTime: 3
+  maxPatrolTime: 8
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  enableFearSystem: 1
+  fearBuildupRate: 10
+  breathingSound: {fileID: 0}
+  heartbeatSound: {fileID: 0}
 --- !u!4 &814820533 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1010010733671478586, guid: c0ec2cd63f93487d92d6623d393c83ba, type: 3}
@@ -984,7 +1054,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 200, y: -60}
+  m_AnchoredPosition: {x: 300, y: -60}
   m_SizeDelta: {x: 500, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &897557080

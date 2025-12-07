@@ -6,73 +6,77 @@ public class ControladorVideoDerrota : MonoBehaviour
 {
     [Header("Configuración")]
     [SerializeField] string escenaMenuPrincipal = "MainScene";
-    [SerializeField] float duracionMinima = 3f; // Mínimo segundos antes de cambiar
+    [SerializeField] float duracionMinima = 3f;
     [SerializeField] bool permitirSaltar = true;
     [SerializeField] KeyCode teclaSaltar = KeyCode.Space;
-    
+
     [Header("Referencias")]
     [SerializeField] VideoPlayer videoPlayer;
-    
+
     private float tiempoInicio;
     private bool videoTerminado = false;
-    
+    private bool videoPreparado = false;
+
     void Start()
     {
-        tiempoInicio = Time.time;
-        
-        // Buscar VideoPlayer si no está asignado
         if (videoPlayer == null)
             videoPlayer = FindObjectOfType<VideoPlayer>();
-        
-        if (videoPlayer != null)
+
+        if (videoPlayer == null)
         {
-            videoPlayer.loopPointReached += OnVideoTerminado;
-            videoPlayer.Play();
-            Debug.Log("Reproduciendo video de derrota...");
+            Debug.LogWarning("No se encontró VideoPlayer. Regresando al menú...");
+            Invoke("IrAlMenu", 3f);
+            return;
         }
-        else
-        {
-            Debug.LogWarning("No se encontró VideoPlayer. Cambiando al menú en 3 segundos.");
-        }
-        
-        // Safety: cambiar automáticamente después de 10 segundos
-        Invoke("IrAlMenu", 10f);
+
+        // Paso 1: preparar video
+        videoPlayer.prepareCompleted += OnVideoPreparado;
+        videoPlayer.loopPointReached += OnVideoTerminado;
+
+        Debug.Log("Preparando video de derrota...");
+        videoPlayer.Prepare();
     }
-    
+
+    void OnVideoPreparado(VideoPlayer vp)
+    {
+        videoPreparado = true;
+        tiempoInicio = Time.time;
+        Debug.Log("Video preparado. Reproduciendo...");
+
+        videoPlayer.Play();
+
+        // Safety anti-bug por si falla el evento de fin
+        Invoke("IrAlMenu", (float)videoPlayer.length + 1f);
+    }
+
     void OnVideoTerminado(VideoPlayer vp)
     {
         videoTerminado = true;
         Debug.Log("Video de derrota terminado.");
-        
-        // Verificar tiempo mínimo
+
         if (Time.time - tiempoInicio >= duracionMinima)
-        {
             IrAlMenu();
-        }
     }
-    
+
     void Update()
     {
-        // Permitir saltar video con tecla
-        if (permitirSaltar && Input.GetKeyDown(teclaSaltar))
+        // Permitir saltar video
+        if (videoPreparado && permitirSaltar && Input.GetKeyDown(teclaSaltar))
         {
-            if (Time.time - tiempoInicio >= 1f) // Esperar al menos 1 segundo
+            if (Time.time - tiempoInicio >= 1f)
             {
                 Debug.Log("Video saltado por jugador.");
                 IrAlMenu();
             }
         }
-        
-        // Si el video terminó y ya pasó el tiempo mínimo
+
+        // Si terminó y ha pasado el tiempo mínimo
         if (videoTerminado && Time.time - tiempoInicio >= duracionMinima)
-        {
             IrAlMenu();
-        }
     }
-    
+
     void IrAlMenu()
     {
-        CancelInvoke("IrAlMenu");
         Debug.Log($"Cargando menú principal: {escenaMenuPrincipal}");
         SceneManager.LoadScene(escenaMenuPrincipal);
     }

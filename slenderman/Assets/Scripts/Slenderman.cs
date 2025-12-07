@@ -11,67 +11,116 @@ public class Slenderman : MonoBehaviour
     [SerializeField] float rotationSpeed = 5f;
     [SerializeField] float detectionRange = 30f;
     [SerializeField] float runRange = 5f;
+    [SerializeField] float acceleration = 2f;
 
     [Header("Footsteps")]
+    [SerializeField] AudioClip[] footstepSounds;
     [SerializeField] float footstepIntervalWalk = 0.6f;
     [SerializeField] float footstepIntervalRun = 0.35f;
+    [SerializeField] [Range(0f, 1f)] float footstepVolume = 0.5f;
     
     [Header("Teleport")]
     [SerializeField] bool enableTeleport = true;
-    [Tooltip("If the Slenderman is farther than this distance from the target, he will teleport closer")]
     [SerializeField] float teleportDistance = 60f;
-    [Tooltip("Distance from the target (on XZ) after teleporting")]
     [SerializeField] float teleportOffset = 2f;
     [SerializeField] bool teleportSnapToGround = true;
-    [Tooltip("Seconds to wait before teleporting once out of range")]
     [SerializeField] float teleportDelay = 3f;
+    [SerializeField] AudioClip teleportSound;
+    [SerializeField] ParticleSystem teleportEffect;
     
     [Header("Derrota")]
     [SerializeField] string escenaVideoDerrota = "DefeatScene";
     [SerializeField] float retrasoDerrota = 0.5f;
     [SerializeField] GameObject efectoDerrota;
     [SerializeField] AudioClip sonidoDerrota;
+    [SerializeField] float attackDistance = 3f;
     
     [Header("Modo Loco")]
-    [SerializeField] float probabilidadModoLoco = 30f; // 30% de probabilidad
-    [SerializeField] float duracionModoLoco = 5f; // Duración en segundos
-    [SerializeField] float multiplicadorVelocidadLoco = 2f; // 2x más rápido
-    [SerializeField] float multiplicadorRangoLoco = 2f; // 2x más rango
-    [SerializeField] AudioClip sonidoModoLoco; // Sonido cuando entra en modo loco
-    [SerializeField] ParticleSystem efectoModoLoco; // Efectos visuales (opcional)
+    [SerializeField] [Range(0f, 100f)] float probabilidadModoLoco = 30f;
+    [SerializeField] float duracionModoLoco = 5f;
+    [SerializeField] float multiplicadorVelocidadLoco = 2f;
+    [SerializeField] float multiplicadorRangoLoco = 2f;
+    [SerializeField] AudioClip sonidoModoLoco;
+    [SerializeField] ParticleSystem efectoModoLoco;
+    [SerializeField] float checkIntervalModoLoco = 10f;
+    
+    [Header("Vision System")]
+    [SerializeField] bool freezeWhenLookedAt = true;
+    [SerializeField] float freezeAngleThreshold = 45f;
+    [SerializeField] float freezeCheckInterval = 0.2f;
+    [SerializeField] AudioClip staticSound;
+    
+    [Header("Comportamiento Avanzado")]
+    [SerializeField] bool enableSmartPatrol = true;
+    [SerializeField] float patrolRadius = 20f;
+    [SerializeField] float minPatrolTime = 3f;
+    [SerializeField] float maxPatrolTime = 8f;
+    [SerializeField] LayerMask obstacleLayer;
+    
+    [Header("Efectos de Miedo")]
+    [SerializeField] bool enableFearSystem = true;
+    [SerializeField] float fearBuildupRate = 10f;
+    [SerializeField] AudioClip breathingSound;
+    [SerializeField] AudioClip heartbeatSound;
     
     private Animator animator;
     private CharacterController characterController;
     private AudioSource audioSource;
+    private AudioSource staticAudioSource;
     private Coroutine footstepCoroutine;
-    private Coroutine teleportCoroutine = null;
-    private Coroutine modoLocoCoroutine = null;
-    private bool derrotaActivada = false;
-    private bool modoLocoActivo = false;
+    private Coroutine teleportCoroutine;
+    private Coroutine modoLocoCoroutine;
+    private Coroutine patrolCoroutine;
+    private bool derrotaActivada;
+    private bool modoLocoActivo;
+    private bool isFrozen;
+    private float currentSpeed;
+    private Vector3 patrolTarget;
     
-    // Valores originales para restaurar después del modo loco
+    // Valores originales
     private float velocidadWalkOriginal;
     private float velocidadRunOriginal;
     private float rangoRunOriginal;
     private float velocidadRotacionOriginal;
 
-    enum State { Idle, Walk, Run }
+    enum State { Idle, Walk, Run, Patrol, Frozen }
     State currentState = State.Idle;
 
     void Awake()
     {
-        animator = GetComponent<Animator>();
-        if (animator == null) animator = GetComponentInChildren<Animator>();
+        InitializeComponents();
+        SaveOriginalValues();
+    }
+
+    void InitializeComponents()
+    {
+        animator = GetComponent<Animator>() ?? GetComponentInChildren<Animator>();
         if (animator != null)
         {
             animator.enabled = true;
             animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
             if (animator.layerCount > 0) animator.SetLayerWeight(0, 1f);
         }
+        
         characterController = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
         
-        // Guardar valores originales
+        // Audio source adicional para efectos estáticos
+        if (staticSound != null)
+        {
+            GameObject staticObj = new GameObject("StaticAudioSource");
+            staticObj.transform.SetParent(transform);
+            staticAudioSource = staticObj.AddComponent<AudioSource>();
+            staticAudioSource.clip = staticSound;
+            staticAudioSource.loop = true;
+            staticAudioSource.volume = 0f;
+            staticAudioSource.spatialBlend = 1f;
+            staticAudioSource.maxDistance = 50f;
+        }
+    }
+
+    void SaveOriginalValues()
+    {
         velocidadWalkOriginal = walkSpeed;
         velocidadRunOriginal = runSpeed;
         rangoRunOriginal = runRange;
@@ -80,108 +129,267 @@ public class Slenderman : MonoBehaviour
 
     void Start()
     {
-        // Iniciar el chequeo aleatorio del modo loco
-        InvokeRepeating("ChequearModoLoco", 5f, 10f); // Cada 10 segundos, empezando a los 5
+        InvokeRepeating(nameof(ChequearModoLoco), 5f, checkIntervalModoLoco);
+        
+        if (freezeWhenLookedAt)
+            InvokeRepeating(nameof(CheckIfPlayerLooking), 0.5f, freezeCheckInterval);
+        
+        if (enableSmartPatrol)
+            StartPatrolling();
     }
 
     void Update()
     {
         if (derrotaActivada) return;
         
+        if (isFrozen)
+        {
+            HandleFrozenState();
+            return;
+        }
+        
         if (target == null)
         {
-            SetState(State.Idle);
+            HandlePatrolMode();
             return;
         }
 
-        Vector3 toTarget = target.position - transform.position;
-        float distance = toTarget.magnitude;
+        float distance = Vector3.Distance(transform.position, target.position);
         
-        // Si está en modo loco y cerca del jugador, atacar
-        if (modoLocoActivo && distance <= 3f)
+        // Sistema de ataque mejorado
+        if (distance <= attackDistance)
         {
+            HandleAttack();
+            return;
+        }
+        
+        // Sistema de teletransporte mejorado
+        HandleTeleportation(distance);
+        
+        // Lógica de movimiento principal
+        HandleMovement(distance);
+        
+        // Sistema de miedo
+        if (enableFearSystem)
+            UpdateFearSystem(distance);
+    }
+
+    void HandleFrozenState()
+    {
+        if (currentSpeed > 0f)
+        {
+            currentSpeed = Mathf.Lerp(currentSpeed, 0f, Time.deltaTime * 5f);
+            
+            if (characterController != null && characterController.enabled)
+                characterController.SimpleMove(transform.forward * currentSpeed);
+        }
+        
+        UpdateStaticSound(1f);
+    }
+
+    void HandleAttack()
+    {
+        if (modoLocoActivo)
             EjecutarAtaqueModoLoco();
-            return;
-        }
-        
-        // Derrota normal (sin modo loco)
-        if (!modoLocoActivo && distance <= 3f)
-        {
-            StartCoroutine(ProcesarDerrota());
-            return;
-        }
-
-        // Lógica de teletransporte
-        if (enableTeleport)
-        {
-            if (distance > teleportDistance)
-            {
-                if (teleportCoroutine == null)
-                {
-                    teleportCoroutine = StartCoroutine(TeleportDelayed());
-                }
-            }
-            else
-            {
-                if (teleportCoroutine != null)
-                {
-                    StopCoroutine(teleportCoroutine);
-                    teleportCoroutine = null;
-                }
-            }
-        }
-
-        if (distance > detectionRange)
-        {
-            SetState(State.Idle);
-            return;
-        }
-
-        // Decidir estado según distancia
-        if (distance > runRange)
-            SetState(State.Walk);
         else
-            SetState(State.Run);
+            StartCoroutine(ProcesarDerrota());
+    }
 
-        // Movimiento
-        if (currentState != State.Idle)
+    void HandleTeleportation(float distance)
+    {
+        if (!enableTeleport) return;
+        
+        if (distance > teleportDistance)
         {
-            Vector3 dir = toTarget;
-            dir.y = 0f;
-            if (dir.sqrMagnitude > 0.001f)
+            if (teleportCoroutine == null)
+                teleportCoroutine = StartCoroutine(TeleportDelayed());
+        }
+        else
+        {
+            if (teleportCoroutine != null)
             {
-                Vector3 dirNorm = dir.normalized;
-                Quaternion targetRot = Quaternion.LookRotation(dirNorm);
-                
-                // En modo loco, rotación más rápida
-                float rotSpeedActual = modoLocoActivo ? rotationSpeed * 1.5f : rotationSpeed;
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotSpeedActual * Time.deltaTime);
-
-                float speed = currentState == State.Run ? runSpeed : walkSpeed;
-                if (characterController != null)
-                {
-                    characterController.SimpleMove(transform.forward * speed);
-                }
-                else
-                {
-                    transform.position += transform.forward * speed * Time.deltaTime;
-                }
+                StopCoroutine(teleportCoroutine);
+                teleportCoroutine = null;
             }
         }
     }
 
-    // Método para chequear si activar modo loco
+    void HandleMovement(float distance)
+    {
+        if (distance > detectionRange)
+        {
+            HandlePatrolMode();
+            return;
+        }
+
+        // Decidir estado según distancia
+        State targetState = distance > runRange ? State.Walk : State.Run;
+        SetState(targetState);
+
+        if (currentState == State.Idle) return;
+
+        // Calcular dirección y rotar
+        Vector3 dirToTarget = (target.position - transform.position);
+        dirToTarget.y = 0f;
+        
+        if (dirToTarget.sqrMagnitude > 0.001f)
+        {
+            RotateTowards(dirToTarget.normalized);
+            MoveForward();
+        }
+        
+        UpdateStaticSound(Mathf.InverseLerp(detectionRange, attackDistance, distance));
+    }
+
+    void HandlePatrolMode()
+    {
+        if (!enableSmartPatrol)
+        {
+            SetState(State.Idle);
+            return;
+        }
+        
+        if (patrolCoroutine == null)
+            StartPatrolling();
+    }
+
+    void StartPatrolling()
+    {
+        if (patrolCoroutine != null)
+            StopCoroutine(patrolCoroutine);
+        
+        patrolCoroutine = StartCoroutine(PatrolRoutine());
+    }
+
+    IEnumerator PatrolRoutine()
+    {
+        while (true)
+        {
+            if (target != null)
+            {
+                float dist = Vector3.Distance(transform.position, target.position);
+                if (dist <= detectionRange)
+                {
+                    patrolCoroutine = null;
+                    yield break;
+                }
+            }
+            
+            // Generar punto de patrulla aleatorio
+            Vector2 randomCircle = Random.insideUnitCircle * patrolRadius;
+            patrolTarget = transform.position + new Vector3(randomCircle.x, 0f, randomCircle.y);
+            
+            // Ajustar al suelo
+            if (Physics.Raycast(patrolTarget + Vector3.up * 5f, Vector3.down, out RaycastHit hit, 20f))
+                patrolTarget.y = hit.point.y;
+            
+            SetState(State.Patrol);
+            
+            // Moverse hacia el punto de patrulla
+            float patrolTime = Random.Range(minPatrolTime, maxPatrolTime);
+            float elapsed = 0f;
+            
+            while (elapsed < patrolTime)
+            {
+                if (target != null && Vector3.Distance(transform.position, target.position) <= detectionRange)
+                {
+                    patrolCoroutine = null;
+                    yield break;
+                }
+                
+                Vector3 dirToPatrol = (patrolTarget - transform.position);
+                dirToPatrol.y = 0f;
+                
+                if (dirToPatrol.magnitude > 1f)
+                {
+                    RotateTowards(dirToPatrol.normalized);
+                    MoveForward();
+                }
+                else
+                {
+                    break; // Llegó al punto de patrulla
+                }
+                
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            
+            // Esperar un momento antes de elegir nuevo punto
+            SetState(State.Idle);
+            yield return new WaitForSeconds(Random.Range(2f, 5f));
+        }
+    }
+
+    void RotateTowards(Vector3 direction)
+    {
+        Quaternion targetRot = Quaternion.LookRotation(direction);
+        float rotSpeed = modoLocoActivo ? rotationSpeed * 1.5f : rotationSpeed;
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotSpeed * Time.deltaTime);
+    }
+
+    void MoveForward()
+    {
+        float targetSpeed = currentState == State.Run ? runSpeed : 
+                           currentState == State.Patrol ? walkSpeed * 0.7f : walkSpeed;
+        
+        currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, acceleration * Time.deltaTime);
+        
+        if (characterController != null && characterController.enabled)
+            characterController.SimpleMove(transform.forward * currentSpeed);
+        else
+            transform.position += transform.forward * currentSpeed * Time.deltaTime;
+    }
+
+    void CheckIfPlayerLooking()
+    {
+        if (target == null || derrotaActivada || modoLocoActivo) return;
+        
+        Camera mainCam = Camera.main;
+        if (mainCam == null) return;
+        
+        Vector3 dirToSlender = (transform.position - mainCam.transform.position).normalized;
+        float angle = Vector3.Angle(mainCam.transform.forward, dirToSlender);
+        
+        bool wasLooking = isFrozen;
+        isFrozen = angle < freezeAngleThreshold;
+        
+        if (isFrozen != wasLooking)
+        {
+            if (isFrozen)
+                SetState(State.Frozen);
+        }
+    }
+
+    void UpdateStaticSound(float intensity)
+    {
+        if (staticAudioSource == null) return;
+        
+        float targetVolume = isFrozen ? intensity * 0.7f : 0f;
+        staticAudioSource.volume = Mathf.Lerp(staticAudioSource.volume, targetVolume, Time.deltaTime * 3f);
+        
+        if (!staticAudioSource.isPlaying && targetVolume > 0.01f)
+            staticAudioSource.Play();
+        else if (staticAudioSource.isPlaying && targetVolume < 0.01f)
+            staticAudioSource.Stop();
+    }
+
+    void UpdateFearSystem(float distance)
+    {
+        // Esta función puede conectarse con un sistema de UI para mostrar el nivel de miedo
+        float fearLevel = Mathf.InverseLerp(detectionRange, attackDistance, distance);
+        
+        // Aquí podrías llamar a un gestor de UI para actualizar efectos visuales
+        // Por ejemplo: FearUIManager.Instance?.SetFearLevel(fearLevel);
+    }
+
     void ChequearModoLoco()
     {
         if (derrotaActivada || modoLocoActivo || target == null) return;
         
-        // Calcular probabilidad (30% por defecto)
         float randomValue = Random.Range(0f, 100f);
         
         if (randomValue <= probabilidadModoLoco)
-        {
             ActivarModoLoco();
-        }
     }
 
     void ActivarModoLoco()
@@ -189,82 +397,51 @@ public class Slenderman : MonoBehaviour
         if (modoLocoActivo) return;
         
         modoLocoActivo = true;
+        isFrozen = false; // El modo loco ignora el freeze
+        
         Debug.Log("[Slenderman] ¡MODO LOCO ACTIVADO!");
         
-        // Guardar valores actuales por si ya estaba en modo loco anteriormente
-        velocidadWalkOriginal = walkSpeed;
-        velocidadRunOriginal = runSpeed;
-        rangoRunOriginal = runRange;
-        
         // Aplicar modificadores
-        walkSpeed *= multiplicadorVelocidadLoco;
-        runSpeed *= multiplicadorVelocidadLoco;
-        runRange *= multiplicadorRangoLoco;
-        rotationSpeed *= 1.5f; // Rotación más rápida
+        walkSpeed = velocidadWalkOriginal * multiplicadorVelocidadLoco;
+        runSpeed = velocidadRunOriginal * multiplicadorVelocidadLoco;
+        runRange = rangoRunOriginal * multiplicadorRangoLoco;
+        rotationSpeed = velocidadRotacionOriginal * 1.5f;
         
-        // Efectos de sonido
-        if (sonidoModoLoco != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(sonidoModoLoco);
-        }
+        // Efectos
+        PlaySoundEffect(sonidoModoLoco);
+        PlayParticleEffect(efectoModoLoco);
         
-        // Efectos visuales
-        if (efectoModoLoco != null)
-        {
-            efectoModoLoco.Play();
-        }
+        // Forzar estado Run
+        SetState(State.Run);
         
-        // Cambiar animación a Run (más agresiva)
-        if (animator != null)
-        {
-            try
-            {
-                animator.CrossFade("Base Layer.Run", 0.1f);
-            }
-            catch
-            {
-                animator.Play("Run");
-            }
-        }
-        
-        // Programar desactivación del modo loco
         if (modoLocoCoroutine != null)
             StopCoroutine(modoLocoCoroutine);
             
-        modoLocoCoroutine = StartCoroutine(DesactivarModoLoco());
+        modoLocoCoroutine = StartCoroutine(DesactivarModoLocoCoroutine());
     }
 
-    IEnumerator DesactivarModoLoco()
+    IEnumerator DesactivarModoLocoCoroutine()
     {
         yield return new WaitForSeconds(duracionModoLoco);
-        
-        DesactivarModoLocoInternal();
+        DesactivarModoLoco();
     }
 
-    void DesactivarModoLocoInternal()
+    void DesactivarModoLoco()
     {
         if (!modoLocoActivo) return;
         
         modoLocoActivo = false;
         Debug.Log("[Slenderman] Modo loco desactivado");
         
-        // Restaurar valores originales
+        // Restaurar valores
         walkSpeed = velocidadWalkOriginal;
         runSpeed = velocidadRunOriginal;
         runRange = rangoRunOriginal;
         rotationSpeed = velocidadRotacionOriginal;
         
-        // Detener efectos visuales
-        if (efectoModoLoco != null)
-        {
-            efectoModoLoco.Stop();
-        }
+        StopParticleEffect(efectoModoLoco);
         
-        if (modoLocoCoroutine != null)
-        {
-            StopCoroutine(modoLocoCoroutine);
-            modoLocoCoroutine = null;
-        }
+        modoLocoCoroutine = null;
     }
 
     void EjecutarAtaqueModoLoco()
@@ -273,56 +450,47 @@ public class Slenderman : MonoBehaviour
         
         Debug.Log("[Slenderman] ¡ATAQUE EN MODO LOCO!");
         
-        // Detener movimiento
         SetState(State.Idle);
+        PlayAnimation("Attack", "Run");
         
-        // Reproducir animación de ataque
-        if (animator != null)
-        {
-            try
-            {
-                animator.CrossFade("Base Layer.Attack", 0.1f);
-            }
-            catch
-            {
-                // Si no existe animación Attack, intentar crear una dinámica
-                Debug.LogWarning("Animación 'Attack' no encontrada. Usando animación Run acelerada.");
-                animator.speed = 2f; // Acelerar animación actual
-            }
-        }
-        
-        // Desactivar modo loco después del ataque
-        DesactivarModoLocoInternal();
-        
-        // Iniciar secuencia de derrota después de un breve momento
-        StartCoroutine(ProcesarDerrotaModoLoco());
+        DesactivarModoLoco();
+        StartCoroutine(DelayedDefeat(0.3f));
     }
 
-    IEnumerator ProcesarDerrotaModoLoco()
+    IEnumerator DelayedDefeat(float delay)
     {
-        yield return new WaitForSeconds(0.3f); // Breve pausa para el ataque
-        
-        // Llamar a la derrota normal
+        yield return new WaitForSeconds(delay);
         StartCoroutine(ProcesarDerrota());
     }
 
     IEnumerator ProcesarDerrota()
     {
+        if (derrotaActivada) yield break;
+        
         derrotaActivada = true;
+        Debug.Log("[Slenderman] ¡Jugador atrapado!");
         
-        Debug.Log("[Slenderman] ¡Jugador atrapado! Iniciando secuencia de derrota...");
-        
-        // Detener modo loco si estaba activo
-        if (modoLocoActivo)
-        {
-            DesactivarModoLocoInternal();
-        }
-        
-        // Detener chequeos de modo loco
-        CancelInvoke("ChequearModoLoco");
+        // Limpieza
+        CleanupCoroutines();
+        DesactivarModoLoco();
+        CancelInvoke();
         
         SetState(State.Idle);
+        enabled = false;
         
+        // Animación y efectos
+        PlayAnimation("Attack", "Run");
+        PlaySoundEffect(sonidoDerrota, true);
+        ActivateGameObject(efectoDerrota);
+        
+        yield return new WaitForSeconds(retrasoDerrota);
+        
+        Debug.Log($"[Slenderman] Cargando escena: {escenaVideoDerrota}");
+        SceneManager.LoadScene(escenaVideoDerrota);
+    }
+
+    void CleanupCoroutines()
+    {
         if (footstepCoroutine != null)
         {
             StopCoroutine(footstepCoroutine);
@@ -335,40 +503,11 @@ public class Slenderman : MonoBehaviour
             teleportCoroutine = null;
         }
         
-        enabled = false;
-        
-        // Animación de ataque final
-        if (animator != null)
+        if (patrolCoroutine != null)
         {
-            try
-            {
-                animator.CrossFade("Base Layer.Attack", 0.1f);
-            }
-            catch
-            {
-                animator.Play("Run"); // Fallback
-            }
+            StopCoroutine(patrolCoroutine);
+            patrolCoroutine = null;
         }
-        
-        if (sonidoDerrota != null && audioSource != null)
-        {
-            audioSource.Stop();
-            audioSource.PlayOneShot(sonidoDerrota);
-        }
-        else if (audioSource != null)
-        {
-            audioSource.Stop();
-        }
-        
-        if (efectoDerrota != null)
-        {
-            efectoDerrota.SetActive(true);
-        }
-        
-        yield return new WaitForSeconds(retrasoDerrota);
-        
-        Debug.Log($"[Slenderman] Cargando escena: {escenaVideoDerrota}");
-        SceneManager.LoadScene(escenaVideoDerrota);
     }
 
     void SetState(State newState)
@@ -376,47 +515,26 @@ public class Slenderman : MonoBehaviour
         if (newState == currentState) return;
         currentState = newState;
 
-        if (animator != null)
+        string animName = currentState switch
         {
-            try
-            {
-                switch (currentState)
-                {
-                    case State.Idle:
-                        animator.CrossFade("Base Layer.Idle", 0.12f);
-                        break;
-                    case State.Walk:
-                        animator.CrossFade("Base Layer.Walk", 0.12f);
-                        break;
-                    case State.Run:
-                        animator.CrossFade("Base Layer.Run", 0.12f);
-                        break;
-                }
-            }
-            catch
-            {
-                switch (currentState)
-                {
-                    case State.Idle:
-                        animator.Play("Idle");
-                        break;
-                    case State.Walk:
-                        animator.Play("Walk");
-                        break;
-                    case State.Run:
-                        animator.Play("Run");
-                        break;
-                }
-            }
-        }
+            State.Idle => "Idle",
+            State.Walk => "Walk",
+            State.Run => "Run",
+            State.Patrol => "Walk",
+            State.Frozen => "Idle",
+            _ => "Idle"
+        };
+        
+        PlayAnimation(animName);
 
-        if (currentState == State.Walk || currentState == State.Run)
+        // Gestionar footsteps
+        if (currentState == State.Walk || currentState == State.Run || currentState == State.Patrol)
         {
             float interval = currentState == State.Run ? footstepIntervalRun : footstepIntervalWalk;
-            if (modoLocoActivo) interval *= 0.5f; // Pasos más rápidos en modo loco
+            if (modoLocoActivo) interval *= 0.5f;
             
             if (footstepCoroutine != null) StopCoroutine(footstepCoroutine);
-            footstepCoroutine = StartCoroutine(Footsteps(interval));
+            footstepCoroutine = StartCoroutine(FootstepsCoroutine(interval));
         }
         else
         {
@@ -428,12 +546,49 @@ public class Slenderman : MonoBehaviour
         }
     }
 
-    IEnumerator Footsteps(float interval)
+    void PlayAnimation(string animName, string fallback = null)
+    {
+        if (animator == null) return;
+        
+        try
+        {
+            animator.CrossFade($"Base Layer.{animName}", 0.12f);
+        }
+        catch
+        {
+            try
+            {
+                animator.Play(animName);
+            }
+            catch
+            {
+                if (fallback != null)
+                {
+                    try { animator.Play(fallback); }
+                    catch { /* Ignore */ }
+                }
+            }
+        }
+    }
+
+    IEnumerator FootstepsCoroutine(float interval)
     {
         while (true)
         {
             yield return new WaitForSeconds(interval);
-            if (audioSource != null && !derrotaActivada) audioSource.Play();
+            
+            if (derrotaActivada) break;
+            
+            if (footstepSounds != null && footstepSounds.Length > 0)
+            {
+                AudioClip clip = footstepSounds[Random.Range(0, footstepSounds.Length)];
+                if (audioSource != null && clip != null)
+                    audioSource.PlayOneShot(clip, footstepVolume);
+            }
+            else if (audioSource != null)
+            {
+                audioSource.Play();
+            }
         }
     }
 
@@ -448,86 +603,143 @@ public class Slenderman : MonoBehaviour
 
         if (teleportSnapToGround)
         {
-            RaycastHit hit;
             Vector3 rayOrigin = newPos + Vector3.up * 5f;
-            if (Physics.Raycast(rayOrigin, Vector3.down, out hit, 20f))
-            {
+            if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 20f))
                 newPos.y = hit.point.y;
-            }
         }
+
+        // Efectos de teletransporte
+        PlayParticleEffect(teleportEffect);
+        PlaySoundEffect(teleportSound);
 
         if (characterController != null)
         {
-            bool wasEnabled = characterController.enabled;
             characterController.enabled = false;
             transform.position = newPos;
-            characterController.enabled = wasEnabled;
+            characterController.enabled = true;
         }
         else
         {
             transform.position = newPos;
         }
+        
+        Debug.Log("[Slenderman] Teletransportado cerca del jugador");
     }
 
     IEnumerator TeleportDelayed()
     {
         float start = Time.time;
+        
         while (Time.time - start < teleportDelay)
         {
-            if (target == null || derrotaActivada) break;
-            float d = (target.position - transform.position).magnitude;
+            if (target == null || derrotaActivada)
+            {
+                teleportCoroutine = null;
+                yield break;
+            }
+            
+            float d = Vector3.Distance(target.position, transform.position);
             if (d <= teleportDistance)
             {
                 teleportCoroutine = null;
                 yield break;
             }
+            
             yield return null;
         }
 
-        if (target != null && !derrotaActivada && (target.position - transform.position).magnitude > teleportDistance)
+        if (target != null && !derrotaActivada)
         {
-            TeleportNearTarget();
+            float finalDist = Vector3.Distance(target.position, transform.position);
+            if (finalDist > teleportDistance)
+                TeleportNearTarget();
         }
+        
         teleportCoroutine = null;
     }
-    
-    // Para debug en el editor
-    void OnDrawGizmosSelected()
+
+    // Métodos auxiliares
+    void PlaySoundEffect(AudioClip clip, bool stopPrevious = false)
     {
-        // Radio normal
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, detectionRange);
+        if (audioSource == null || clip == null) return;
         
-        // Radio run (cambia en modo loco)
-        Gizmos.color = modoLocoActivo ? Color.magenta : Color.red;
-        Gizmos.DrawWireSphere(transform.position, runRange);
+        if (stopPrevious)
+            audioSource.Stop();
         
-        // Radio de ataque
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, 3f);
-        
-        // Indicador visual del modo loco
-        if (modoLocoActivo)
-        {
-            Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
-            Gizmos.DrawSphere(transform.position, 2f);
-        }
+        audioSource.PlayOneShot(clip);
     }
-    
-    // Método público para activar modo loco desde otros scripts (opcional)
+
+    void PlayParticleEffect(ParticleSystem effect)
+    {
+        if (effect != null && !effect.isPlaying)
+            effect.Play();
+    }
+
+    void StopParticleEffect(ParticleSystem effect)
+    {
+        if (effect != null && effect.isPlaying)
+            effect.Stop();
+    }
+
+    void ActivateGameObject(GameObject obj)
+    {
+        if (obj != null)
+            obj.SetActive(true);
+    }
+
+    // Método público
     public void ForzarModoLoco(float duracionExtra = 0f)
     {
         ActivarModoLoco();
+        
         if (duracionExtra > 0 && modoLocoCoroutine != null)
         {
             StopCoroutine(modoLocoCoroutine);
             modoLocoCoroutine = StartCoroutine(DesactivarModoLocoConExtra(duracionExtra));
         }
     }
-    
+
     IEnumerator DesactivarModoLocoConExtra(float extra)
     {
         yield return new WaitForSeconds(duracionModoLoco + extra);
-        DesactivarModoLocoInternal();
+        DesactivarModoLoco();
+    }
+
+    // Gizmos mejorados
+    void OnDrawGizmosSelected()
+    {
+        // Radio de detección
+        Gizmos.color = new Color(1f, 1f, 0f, 0.3f);
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
+        
+        // Radio run
+        Gizmos.color = modoLocoActivo ? new Color(1f, 0f, 1f, 0.5f) : new Color(1f, 0f, 0f, 0.5f);
+        Gizmos.DrawWireSphere(transform.position, runRange);
+        
+        // Radio de ataque
+        Gizmos.color = new Color(0f, 1f, 1f, 0.7f);
+        Gizmos.DrawWireSphere(transform.position, attackDistance);
+        
+        // Indicador modo loco
+        if (modoLocoActivo)
+        {
+            Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
+            Gizmos.DrawSphere(transform.position + Vector3.up * 2f, 1f);
+        }
+        
+        // Radio de patrulla
+        if (enableSmartPatrol)
+        {
+            Gizmos.color = new Color(0f, 1f, 0f, 0.2f);
+            Gizmos.DrawWireSphere(transform.position, patrolRadius);
+        }
+        
+        // Punto de patrulla actual
+        if (currentState == State.Patrol)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(patrolTarget, 0.5f);
+            Gizmos.DrawLine(transform.position, patrolTarget);
+        }
     }
 }
